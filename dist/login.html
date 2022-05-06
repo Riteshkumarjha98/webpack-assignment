@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <style>
+        /* body{
+       background-image: url("https://wallpaperaccess.com/full/2314950.jpg");
+   } */
+   </style>
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <h1>Login To Your Account </h1>
+    <div id="login">
+        <input type="text" id="username" placeholder="usernae">
+    <input type="text" id="password" placeholder="password">
+    <button id="submit"> login</button>
+</div>
+
+</body>
+</html>
+<script type="module">
+    import navbar from "./components/navbar.js";
+    document.getElementById("navbar").innerHTML=navbar();
+
+    let login= async()=>{
+        let user_data ={
+            username:document.getElementById("username").value,
+            password:document.getElementById("password").value,
+
+        };
+        user_data=JSON.stringify(user_data);
+
+        let res = await fetch("https://masai-api-mocker.herokuapp.com/auth/login", {
+            method: "POST",
+            body: user_data,
+            headers: {
+                "content-Type": "application/json",
+                  }
+        });
+        let data =await res.json();
+        console.log(data);
+    };
+    document.getElementById("submit").addEventListener('click',login);
+
+</script>
